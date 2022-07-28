@@ -1,7 +1,7 @@
 import torch
 import torch.nn as nn
 
-import torchvision.transfroms as transforms
+import torchvision.transforms as transforms
 import torchvision.models as models
 
 from torchvision import save_image
