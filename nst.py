@@ -48,7 +48,7 @@ total_steps = 6000
 learning_rate = 1e-3
 alpha = 1.0
 beta = 0.01
-optimizer = optim.Adam([gen_image] lr=learning_rate)
+optimizer = optim.Adam([gen_image], lr=learning_rate)
 
 for step in range(total_steps):
     base_feats = model(base_image)
