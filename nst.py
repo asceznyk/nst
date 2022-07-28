@@ -39,7 +39,7 @@ loader = transforms.Compose([
     transforms.ToTensor()
 ])
 
-base_image = load_image('images/aizen_prof.png')
+base_image = load_image('images/aizen_prof.jpg')
 style_image = load_image('images/female_head_picasso.jpg')
 
 print(base_image.shape, style_image.shape)
