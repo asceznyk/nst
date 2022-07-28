@@ -1,3 +1,5 @@
+import tqdm
+
 import torch
 import torch.nn as nn
 import torch.optim as optim
@@ -50,10 +52,34 @@ alpha = 1.0
 beta = 0.01
 optimizer = optim.Adam([gen_image], lr=learning_rate)
 
-for step in range(total_steps):
+def gram_mat(x):
+    n, c, h, w = x.size() 
+    f = x.view(n * c, h * w)
+    return torch.mm(f, f.t())
+
+for step in tqdm.tqdm(range(total_steps)):
     base_feats = model(base_image)
     style_feats = model(style_image)
     gen_feats = model(gen_image)
+
+    content_loss = style_loss = 0
+    for fg, fs, fb in zip(gen_feats, style_feats, base_feats):
+        n, c, h, w = fg.size()
+        content_loss += torch.mean((fg - fb) ** 2)
+        style_loss += torch.mean((gram_mat(fg) - gram_mat(fs)) ** 2) / (4.0 * c**2 * (h*w)**2)
+
+    total_loss = alpha * content_loss + beta * style_loss
+    
+    optimizer.zero_grad()
+    total_loss.backward()
+    optimizer.step()
+
+    if step % 200 == 0:
+        print(f"loss @ step {step} == {total_loss.item()}")
+        save_image(gen_image, "gen_image.jpg")
+
+
+
 
 
 
