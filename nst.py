@@ -1,5 +1,6 @@
 import torch
 import torch.nn as nn
+import torch.optim as optim
 
 import torchvision.transforms as transforms
 
@@ -41,10 +42,20 @@ loader = transforms.Compose([
 
 base_image = load_image('images/aizen_prof.jpg')
 style_image = load_image('images/female_head_picasso.jpg')
-
 gen_image = base_image.clone().requires_grad_(True)
 
-base_feats = model(base_image)
-print(base_feats)
+total_steps = 6000
+learning_rate = 1e-3
+alpha = 1.0
+beta = 0.01
+optimizer = optim.Adam([gen_image] lr=learning_rate)
+
+for step in range(total_steps):
+    base_feats = model(base_image)
+    style_feats = model(style_image)
+    gen_feats = model(gen_image)
+
+
+
 
 
