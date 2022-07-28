@@ -20,7 +20,7 @@ def load_image(image_name):
 def gram_mat(x):
     n, c, h, w = x.size() 
     f = x.view(n*c, h*w)
-    return torch.mm(f, f.t()).div(n*c*h*w)
+    return torch.mm(f, f.t()) #.div(n*c*h*w)
 
 class VGG(nn.Module):
     def __init__(self):
@@ -53,9 +53,9 @@ style_image = load_image(sys.argv[2])
 gen_image = base_image.clone().requires_grad_(True)
 
 total_steps = 6000
-learning_rate = 1e-2
+learning_rate = 1e-3
 alpha = 1
-beta = 100000
+beta = 10
 optimizer = optim.Adam([gen_image], lr=learning_rate)
 
 model.to(device)
