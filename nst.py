@@ -17,8 +17,8 @@ def load_image(image_name):
 model = models.vgg19(pretrained=True).features
 print(model)
 
-device = torch.device("cuda" if torch.cuda.is_available else "cpu")
-print(torch.cuda.is_available)
+device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+print(torch.cuda.is_available())
 image_size = 356
 
 loader = transforms.Compose([
