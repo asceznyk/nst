@@ -57,6 +57,7 @@ def gram_mat(x):
     f = x.view(n * c, h * w)
     return torch.mm(f, f.t())
 
+model.to(device)
 for step in tqdm.tqdm(range(total_steps)):
     base_feats = model(base_image)
     style_feats = model(style_image)
