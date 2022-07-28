@@ -1,3 +1,4 @@
+import sys
 import tqdm
 
 import torch
@@ -47,14 +48,14 @@ loader = transforms.Compose([
     transforms.ToTensor()
 ])
 
-base_image = load_image('images/aizen_prof.jpg')
-style_image = load_image('images/female_head_picasso.jpg')
+base_image = load_image(sys.argv[1])
+style_image = load_image(sys.argv[2])
 gen_image = base_image.clone().requires_grad_(True)
 
 total_steps = 6000
 learning_rate = 1e-3
 alpha = 1
-beta = 100
+beta = 1000
 optimizer = optim.Adam([gen_image], lr=learning_rate)
 
 model.to(device)
