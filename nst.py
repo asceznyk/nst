@@ -41,7 +41,7 @@ loader = transforms.Compose([
 
 base_image = load_image('images/aizen_prof.png')
 style_image = load_image('images/female_head_picasso.jpg')
-gen_image = base_image.clone().requires_grad(True)
+gen_image = base_image.clone().requires_grad_(True)
 
 base_feats = model(base_image)
 print(base_feats)
