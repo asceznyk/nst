@@ -11,6 +11,7 @@ from PIL import Image
 def load_image(image_name):
     image = Image.open(image_name)
     image = loader(image).unsqueeze(0)
+    print(device)
     return image.to(device)
 
 model = models.vgg19(pretrained=True).features
