@@ -2,8 +2,8 @@ import torch
 import torch.nn as nn
 
 import torchvision.transforms as transforms
-import torchvision.models as models
 
+from torchvision.models import vgg19, VGG19_Weights
 from torchvision.utils import save_image
 
 from PIL import Image
@@ -11,14 +11,12 @@ from PIL import Image
 def load_image(image_name):
     image = Image.open(image_name)
     image = loader(image).unsqueeze(0)
-    print(device)
     return image.to(device)
 
-model = models.vgg19(pretrained=True).features
+model = vgg19(weights=VGG19_Weights.IMAGENET1K_V1).features
 print(model)
 
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-print(torch.cuda.is_available())
 image_size = 356
 
 loader = transforms.Compose([
