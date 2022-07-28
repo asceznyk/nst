@@ -16,6 +16,11 @@ def load_image(image_name):
     image = loader(image).unsqueeze(0)
     return image.to(device)
 
+def gram_mat(x):
+    n, c, h, w = x.size() 
+    f = x.view(n*c, h*w)
+    return torch.mm(f, f.t()).div(n*c*h*w)
+
 class VGG(nn.Module):
     def __init__(self):
         super(VGG, self).__init__()
@@ -51,11 +56,6 @@ learning_rate = 1e-3
 alpha = 1
 beta = 100
 optimizer = optim.Adam([gen_image], lr=learning_rate)
-
-def gram_mat(x):
-    n, c, h, w = x.size() 
-    f = x.view(n*c, h*w)
-    return torch.mm(f, f.t()).div(n*c*h*w)
 
 model.to(device)
 for step in tqdm.tqdm(range(total_steps)):
