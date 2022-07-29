@@ -53,9 +53,9 @@ style_image = load_image(sys.argv[2])
 gen_image = base_image.clone().requires_grad_(True)
 
 total_steps = 6000
-learning_rate = 1e-2
+learning_rate = 1e-3
 alpha = 1
-beta = 0.2
+beta = 0.01
 optimizer = optim.Adam([gen_image], lr=learning_rate)
 
 model.to(device)
